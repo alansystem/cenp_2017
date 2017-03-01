@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />-->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <title>CENP</title>
+</head>
+<body>
+    <div data-role="header" data-position="fixed">
+        <center>
+            <img src="img/cenp-logo.png" class="img-responsive">
+        </center>
+    </div>
+    <div class="container">
+
+        <div class="row text-center" style="margin-top:100px;display: none">
+            <img src="img/ajax-loader.gif" id="wait">
+        </div>
+
+        <div class="row" style="margin-top:50px;">
+            <div class="col-xs-12">
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Senha:</label>
+                        <input type="password" class="form-control" id="senha">
+                    </div>
+                    <!--onclick="javascript:location.href='home.html'"-->
+                    <a class="btn btn-default btnAcessar">Acessar</a>
+                </form>
+            </div>
+        </div>
+        <div class="row text-center" style="margin-top:50px">
+            <a href="cadastro.html" class="btn btn-success" style="color:#FFF;font-weight: normal;">Ainda não tem acesso? Cadastre-se aqui</a><br><br>
+            <a href="esqueceu_senha.html" class="btn btn-primary" style="color:#FFF;font-weight: normal;">Esqueceu e-mail / senha? Clique aqui</a>
+        </div>
+    </div><!-- Fim container -->
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        try {
+            app.initialize();
+        } catch (e) {
+            //
+        }
+    </script>
+
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("deviceready", onDeviceReady_lg, false);
+        function onDeviceReady_lg() {
+
+
+            $('.btnAcessar').click(function () {
+
+                var email = $('#email').val();
+                var senha = $('#senha').val();
+
+                $.ajax({
+                    method: "POST",
+                    async: false,
+                    data: { email: email, senha: senha },
+                    url: "http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/apiLogin",
+                    crossDomain: true,
+                    dataType: 'html',
+                    beforeSend: function () { $('#wait').show(); },
+                    complete: function () { $('#wait').hide(); },
+
+                    statusCode: {
+                        404: function () {
+                            console.log('Página fora do ar');
+                        }
+                    }
+
+                })
+                      .done(function (resultado) {
+
+                          var dados = resultado.split(';');
+
+                          //Caso sucesso no login
+                          if (dados[0] == 'logado') {
+                              localStorage.setItem('id_cadastro', dados[1]);
+                              localStorage.setItem('nome', dados[2]);
+                              localStorage.setItem('email', dados[3]);
+                              localStorage.setItem('logado', 'true');
+
+                              location.href = "home.html";
+
+                          } else if (dados[0] == 'falha-login') {
+                              alert('Não foi encontrado seu cadastro, verifique se digitou corretamente!');
+
+                          } else if (dados[0] == 'nao-ativada') {
+                              alert('Sua conta não encontra-se ativada, acesse o email que enviamos e clique no link de ativação!');
+                          }
+
+
+                      })
+                      .fail(function () {
+
+                          alert("Por favor verifique sua conexão com a internet e tente novamente.");
+                          location.href = "login.html";
+                      })
+                      .always(function () {
+                          //alert( "complete" );
+                      });
+            });
+
+        }
+    </script>
+</body>
+</html>

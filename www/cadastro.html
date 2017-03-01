@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <title>CENP</title>
+</head>
+
+<body>
+            <div data-role="header" data-position="fixed">
+                <center>
+                    <img src="img/cenp-logo.png" class="img-responsive">    
+                </center>
+            </div>
+
+            <div class="container">
+            <a href="login.html" class="btn btn-default" data-transition="flip">Voltar</a>
+
+
+                
+                    <div class="row" style="margin-top:50px;margin-bottom: 50px">
+                        <div class="col-xs-12">
+                            <form id="formCadastro">
+                                  <div class="form-group">
+                                    <label for="nome">Nome Completo:</label>
+                                    <input type="nome" class="form-control" id="nome">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="cpf">CPF:</label>
+                                    <input type="cpf" class="form-control" id="cpf">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="empresa">Empresa:</label>
+                                    <input type="empresa" class="form-control" id="empresa">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="ramo_atividade">Ramo Atividade:</label>
+                                    <input type="ramo_atividade" class="form-control" id="ramo_atividade">
+                                  </div>
+                                 <div class="form-group">
+                                    <label for="cargo">Cargo:</label>
+                                    <input type="cargo" class="form-control" id="cargo">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="telefone">Telefone:</label>
+                                    <input type="telefone" class="form-control" id="telefone">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="cidade">Cidade:</label>
+                                    <input type="cidade" class="form-control" id="cidade">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="uf">UF:</label>
+                                    <input type="uf" class="form-control" id="uf">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" id="email">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="senha">Senha:</label>
+                                    <input type="password" class="form-control" id="senha">
+                                  </div>
+                                  <!--onclick="javascript:location.href='home.html'"-->
+                                  <a class="btn btn-default btnCadastrar">Cadastrar</a>
+                                  <img src="img/ajax-loader.gif" style="display: none" id="wait">
+                            </form>
+                        </div>
+                    </div>
+
+                                 
+            </div><!-- Fim container -->
+
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+
+
+    <script src="js/jquery.min.js"></script>
+    <!--<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
+
+    <script type="text/javascript">
+       $(function(){
+
+        $('.btnCadastrar').click(function(){
+
+            var nome            = $('#nome').val();
+            var cpf             = $('#cpf').val();
+            var empresa         = $('#empresa').val();
+            var ramo_atividade  = $('#ramo_atividade').val();
+            var cargo           = $('#cargo').val();
+            var telefone        = $('#telefone').val();
+            var cidade          = $('#cidade').val();
+            var uf              = $('#uf').val();
+            var email           = $('#email').val();
+            var senha           = $('#senha').val();
+
+
+            $.ajax({
+              method: "POST",
+              async: false,
+              data: {nome:nome,cpf:cpf,empresa:empresa,ramo_atividade:ramo_atividade,cargo:cargo,telefone:telefone,cidade:cidade,uf:uf,email:email,senha:senha},
+              url: "http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/apiCadastro",
+                crossDomain: true,
+                dataType: 'html',
+                
+                statusCode: {
+                404: function() {
+                  console.log('Página fora do ar');
+                }
+                }
+                  
+                })
+                  .done(function(resultado) {
+                    if(resultado == 'consta-email')
+                    {
+                        alert('E-mail já cadastrado em nossa base de dados, caso não lembre da senha, utilize o opção "Esqueci minha Senha!');
+
+                    }else if(resultado == 'consta-cpf')
+                    {
+                        alert('Esse CPF já consta em nossa base de dados, caso tenha esquecido sua senha, utilize a opção "Esqueci minha Senha!');
+
+                    }else if(resultado == 'cadastro-realizado')
+                    {
+                        alert('Cadastro realizado com sucesso!');
+                        location.href="login.html";
+
+                    }else if(resultado == 'campos-vazios')
+                    {
+                        alert('Por favor preencha todos os campos!');
+                    }
+
+
+
+                  })
+                  .fail(function() {
+                    alert( "Por favor verifique sua conexão com a internet e tente novamente." );
+                    location.href="login.html";
+                  })
+                  .always(function() {
+                    //alert( "complete" );
+                  });
+        });
+
+    });
+    </script>
+
+</body>
+
+</html>
