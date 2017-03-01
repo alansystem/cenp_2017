@@ -1,0 +1,13 @@
+{
+  "ios": {
+    "debug": {
+      "developmentTeam": "iPhone Developer"
+    },
+    "release": {
+      "developmentTeam": "5CSW9YFXG9",
+      "provisioningProfile": "9d06cf4d-c283-449a-a38e-c2a128368fcd",
+      "codeSignIdentity": "iPhone Distribution",
+      "packageType": "app-store"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "com.magtab.796",
+  "version": "4.0.7",
+  "description": "CENP - Revista",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/phonegap/phonegap-app-hello-world.git"
+  },
+  "author": "Lucio Marques",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "bugs": {
+    "url": "https://github.com/phonegap/phonegap-app-hello-world/issues"
+  },
+  "homepage": "https://github.com/phonegap/phonegap-app-hello-world"
+}
