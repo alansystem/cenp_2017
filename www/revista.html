@@ -5,16 +5,17 @@
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=3, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
     <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />-->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="css/styles.css" rel="stylesheet" />
     <link href="css/swiper.css" rel="stylesheet" />
     <title>CENP</title>
+    <script type="text/javascript" src="cordova.js"></script>
 </head>
-<body>
+<body style="">
 
-    <header id="header">
+    <header id="header" style="position:fixed; width:100%;">
         <div id="headerContainer">
             <div class="alert alert-success text-center continueLendo" style="display: none">
                 <strong>Continue a leitura:</strong> A página abaixo é de acordo com a última página visualizada desta edição.
@@ -28,10 +29,10 @@
         </div>
     </header>
 
-    <div id="page">
+    <div id="page" style="">
         <!--<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: block;">Previous</button>-->
-        <div class="swiper-container" style="padding-top:65px;">
-            <div class="swiper-wrapper">
+        <div class="swiper-container" style="padding-top:65px; height:100%;">
+            <div class="swiper-wrapper" style="height:100%;">
 
             </div>
             <!--<div class="image">
@@ -40,13 +41,13 @@
         </div>
         <!--<button type="button" data-role="none" class="slick-next slick-arrow" aria-label="Next" role="button" style="display: block;">Next</button>-->
     </div>
-    <footer></footer>
+    <!--<footer></footer>-->
 
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script src="js/jquery.min.js"></script>        
-    <script src="js/swiper.jquery.js"></script>
-    <script src="js/jquery.imagezoom.js"></script>
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/swiper.jquery.js"></script>
+    <script type="text/javascript" src="js/jquery.imagezoom.js"></script>
 
     <script type="text/javascript">
         var url_sistema = 'http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/';
@@ -57,18 +58,22 @@
             var revista_id = localStorage.getItem('revista_id');
             var page_current = localStorage.getItem('page_current_' + revista_id);
 
+            var swiper;
+
 
             //Contabiliza Acesso
-            $.post(url_sistema + 'apiInsertContabilizaRevista', { id_revista: revista_id, id_leitor: id_leitor }, function () {
-                console.log('Contabilizado');
-            });
+            try {
+                $.post(url_sistema + 'apiInsertContabilizaRevista', { id_revista: revista_id, id_leitor: id_leitor }, function () {
+                    console.log('Contabilizado');
+                });
+            } catch (e) { }
 
-           
+
             var id_revista = localStorage.getItem('revista_id');
             var numero_revista = localStorage.getItem('revista_numero');
-                                                                                   
+
             var existeDir = 0;
-            
+
             try {
                 window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory("EDICAO_" + numero_revista, { create: false }, function (e) { window.setTimeout(function () { local(); }, 1200); }, function (e) { online(); }); });
             } catch (e) {
@@ -98,7 +103,7 @@
 
                           localStorage.setItem('link_app', dados[0]);
                           localStorage.setItem('total_pages', dados[1]);
-       
+
                           $('.swiper-wrapper').html('');
                           for (var c = 0; c < dados[1]; c++) {
                               $('.swiper-wrapper').append('<div class="swiper-slide zoom pag' + c + '" data-zoom="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" style="overflow:hidden;"><img src="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" class="img-responsive imagem' + c + '" /></div>');
@@ -114,7 +119,7 @@
                               //        localStorage.setItem('page_current_' + revista_id, sw.realIndex);
                               //        }
                               //});
-                              var swiper = new Swiper('.swiper-container', {
+                              swiper = new Swiper('.swiper-container', {
                                   onTransitionEnd: function (sw) {
                                       //console.log(sw.realIndex);
                                       localStorage.setItem('page_current_' + revista_id, sw.realIndex);
@@ -124,7 +129,7 @@
 
                               $('.zoom').zoom();
 
-                          }, 200);
+                          }, 500);
 
 
                       })
@@ -143,6 +148,7 @@
 
             function local() {
                 var imagens = [];
+                var imagensAux = [];
                 var index = 0;
                 var i;
                 var addFileEntry = function (entry) {
@@ -156,12 +162,36 @@
                                   // Recursive -- call back into this subdirectory
                                   //addFileEntry(entries[i]);
                               } else {
-                                  if (entries[i].fullPath.toLowerCase().indexOf('.jpg') > 0) {
-                                      imagens[imagens.length] = cordova.file.dataDirectory + entries[i].fullPath;
+                                  if (entries[i].fullPath.toLowerCase().indexOf('.jpg') > -1) {
+                                      //imagens[imagens.length] = cordova.file.dataDirectory + entries[i].fullPath;
+                                      imagensAux[imagensAux.length] = cordova.file.dataDirectory + entries[i].fullPath;
                                   }
                                   index++;
                               }
                           }
+
+
+                          var auxI = 1;
+
+                          var total = imagensAux.length;
+
+                          while (auxI <= total) {
+                              for (var x = 0; x < imagensAux.length; x++) {
+
+                                  if (imagensAux[x].toString().indexOf('page'.concat(auxI, '.jpg')) > 0) {
+                                      imagens[imagens.length] = imagensAux[x];
+                                      //console.log(imagensAux[x]);
+                                      if (imagensAux.length > 0) {
+                                          imagensAux.splice(x, 1);
+                                      }
+                                      auxI++;
+                                      break
+                                  }
+                              }
+                              //if (auxI > imagensAux.length)
+                              //    break;
+                          }
+
 
 
                           var w = $('#page').outerWidth();
@@ -170,9 +200,9 @@
 
                           $('.swiper-wrapper').html('');
                           for (var c = 0; c < imagens.length; c++) {
-                              $('.swiper-wrapper').append('<div class="swiper-slide zoom pag' + c + '" data-zoom="' + imagens[c] + '" style="overflow:hidden;"><img src="' + imagens[c] + '" class="img-responsive imagem' + c + '" /></div>');
+                              $('.swiper-wrapper').append('<div class="swiper-slide zoom divimagem pag' + c + '" style="height:100%;" data-zoom="' + imagens[c] + '" ><img name="img" src="' + imagens[c] + '" style="z-index:1;" class="img-responsive imagem' + c + '" /></div>');
                           }
-                                                                                      
+
 
                           window.setTimeout(function () {
 
@@ -183,7 +213,7 @@
                               //        localStorage.setItem('page_current_' + revista_id, sw.realIndex);
                               //    }
                               //});
-                              var swiper = new Swiper('.swiper-container', {
+                              swiper = new Swiper('.swiper-container', {
                                   onTransitionEnd: function (sw) {
                                       //console.log(sw.realIndex);
                                       localStorage.setItem('page_current_' + revista_id, sw.realIndex);
@@ -193,7 +223,7 @@
 
                               $('.zoom').zoom();
 
-                          }, 200);
+                          }, 500);
 
                       },
                       function (error) {
@@ -217,6 +247,28 @@
 
         }
 
+        window.addEventListener('orientationchange', function () {
+            //$('#page').css('height',$(document).height() - 45);
+            //$('.img-responsive').parent().css('height',$(document).height() - 45);
+            //$('.swiper-container').css('height',$(document).height() - 45);
+            //$(body).css('height',$(document).height());
+            
+            //$('.img-responsive').css('height',$(document).height() - 45);
+
+
+            //var swiper = new Swiper('.swiper-container', {
+            //    onTransitionEnd: function (sw) {
+            //        //console.log(sw.realIndex);
+            //        localStorage.setItem('page_current_' + revista_id, sw.realIndex);
+            //    }
+            //});
+
+            //$('.zoom').zoom();
+
+            //$('[name="img"]').removeClass('img-responsive');
+            //$('[name="img"]').addClass('img-responsive');
+        });
+
     </script>
     <!-- IVC TAG starts plowing -->
     <script type="text/javascript">
@@ -232,7 +284,7 @@
                 }; p[i].q = p[i].q || []; n = l.createElement(o); g = l.getElementsByTagName(o)[0]; n.async = 1;
                 n.src = w; g.parentNode.insertBefore(n, g)
             }
-        }(window, document, "script", "//ivccftag.ivcbrasil.org.br/ivc.js", "ivc"));
+        }(window, document, "script", "//gadasource.storage.googleapis.com/ivc.js", "ivc"));
 
         window.ivc('newTracker', 'cf', 'ivccf.ivcbrasil.org.br', {
             idWeb: '105'
@@ -246,10 +298,6 @@
 
     </script>
 
-    <script type="text/javascript">
-
-
-    </script>
     <!-- IVC TAG stops plowing -->
 </body>
 </html>

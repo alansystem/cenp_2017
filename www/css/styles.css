@@ -10,7 +10,7 @@ html, body {
 	margin:0;
   	padding:0;
 	height: 100%;
-	min-height: 100%;
+	/*min-height: 100%;*/
 }
 
 /*body{
@@ -19,8 +19,8 @@ html, body {
   font-family: Trebuchet, Arial, Helvetica;
   background-color: #FFFFFF;
   /*min-width:1000px;*/
-  min-width:100%;
-}*/
+  /*min-width:100%;*/
+/*}*/
 #page {
 	padding-top:0px;
  	padding-bottom:0px;
@@ -31,7 +31,7 @@ html, body {
     margin-right: auto;
  	
 	margin-top:0px;
-	margin-bottom:-83px;
+	/*margin-bottom:-83px;*/
 	/* Fallback for web browsers that doesn't support RGBa */
 	background: rgb(255, 255, 255);
 	/* RGBa with 0.6 opacity */
@@ -39,7 +39,8 @@ html, body {
 	
 	border-right: solid 1px #EBE7E7;
 	border-left: solid 1px #EBE7E7;
-	min-height: 100%;
+	/*min-height: 100%;*/
+    height:100%;
 }
 
 
@@ -102,10 +103,11 @@ header{
       display:inline-block;
   /*max-width: 100%;
   height: auto;*/
+  height:auto;
 }
 
 .divimagem{
-    /*overflow:scroll;*/
+    overflow:scroll;
     z-index:10;
 }
 
