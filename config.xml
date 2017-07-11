@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget android-packageName="br.com.cenp" defaultlocale="pt-BR" id="br.com.cenp" ios-CFBundleIdentifier="com.magtab.796" ios-CFBundleVersion="4.0.94" version="4.0.95" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">
+<widget android-packageName="br.com.cenp" defaultlocale="pt-BR" id="br.com.cenp" ios-CFBundleIdentifier="com.magtab.796" ios-CFBundleVersion="4.0.94" version="4.0.96" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps">
   <name>CENP Revista</name>
   <description>CENP - Revista</description>
   <author email="programador@clarearpropaganda.com.br" href="http://clarearpropaganda.com.br">Clarear Propaganda</author>
