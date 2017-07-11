@@ -1,0 +1,27 @@
+{
+  "command": "build",
+  "vcordova": "7.0.1",
+  "cfg": "debug",
+  "buildNumber": "1231",
+  "status": "Complete",
+  "buildCommand": "build",
+  "buildPlatform": "ios",
+  "configuration": "debug",
+  "buildDir": "/Users/luciomarques/.taco_home/remote-builds/taco-remote/builds/1231",
+  "options": "",
+  "logLevel": 0,
+  "previousvcordova": "7.0.1",
+  "submissionTime": "2017-07-08T14:36:30.289Z",
+  "changeList": {
+    "deletedFiles": []
+  },
+  "buildSuccessful": true,
+  "messageArgs": [
+    "ios"
+  ],
+  "message": "Compilação concluída com êxito.",
+  "tgzFilePath": "/Users/luciomarques/.taco_home/remote-builds/taco-remote/builds/1231/upload_1231.tgz",
+  "appDir": "/Users/luciomarques/.taco_home/remote-builds/taco-remote/builds/1231/cordovaApp",
+  "statusTime": "2017-07-08T14:36:50.859Z",
+  "appName": "CENP Revista"
+}

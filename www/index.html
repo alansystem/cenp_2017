@@ -8,6 +8,12 @@
     <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />-->
     <!--<link rel="stylesheet" href="css/bootstrap.css">-->
     <title>CENP em Revista</title>
+    <style type="text/css">
+        .invisivel{
+            visibility:hidden;
+            display:none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,6 +27,8 @@
             </center>
             <h4>carregando...</h4>
         </div>
+
+        <div class="revistas invisivel"></div>
 
     </div><!-- Fim container -->
     <script type="text/javascript" src="cordova.js"></script>
@@ -41,8 +49,81 @@
             
             //setTimeout(function () {
                 //Caso esteja logado
+
                 if (localStorage.getItem('logado') == 'true') {
-                    location.href = "home.html";
+                    //location.href = "home.html";                
+
+                    //window.setTimeout(function () {
+                        var networkState = navigator.connection.type;
+
+                                                                    
+                        if (networkState !== 'none') {
+                            $.ajax({
+                                method: "GET",
+                                //async: false,
+                                url: "http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/apiRevistas2",
+
+                                statusCode: {
+                                    404: function () {
+                                        console.log('Página fora do ar');
+                                    }
+                                }
+
+                            })
+                                .done(function (resultado) {
+                                    $('.revistas').html(resultado);
+                                    //console.log(resultado);
+                                    //$(".download").hide();
+                                    window.setTimeout(function () {
+                                        $.each($('.btnViewRevista'), function (key, value) {
+                                            //console.log($('.download:eq(' + key + ')').attr('id'));
+                                            //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                                            //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                                            //alert($('.btnViewRevista:eq(' + key + ')').attr('id'));
+
+
+                                            var idRevista_numeroRevista = $('.btnViewRevista:eq(' + key + ')').attr('id');//$(this).attr('id');
+                                            var revista = idRevista_numeroRevista.split('_');
+                                            var idLeitor = localStorage.getItem('id_cadastro');
+                                            localStorage.setItem('revista_id', revista[0]);
+                                            localStorage.setItem('revista_numero', revista[1]);
+
+                                            return false;
+                                        });
+
+                                        location.href = 'revista.html';                                        
+
+                                    }, 600);
+                                })
+                                .fail(function () {
+                                                                                                                 
+                                    //location.href = "login.html";
+                                })
+                                .always(function () {
+                                    //alert( "complete" );
+                                });
+                        } else {
+                            var resultado;
+                            resultado = localStorage.getItem('CAPA');
+                            $('.revistas').html('<div>MODO OFFLINE<br></div>' + resultado);
+                            //console.log(resultado);
+                            //$(".download").hide();
+                            window.setTimeout(function () {
+                                $.each($('.btnViewRevista'), function (key, value) {
+                                    //console.log($('.download:eq(' + key + ')').attr('id'));
+                                    //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                                    //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                                    console.log($('.btnViewRevista:eq(' + key + ')').attr('id'));
+                                });
+                                
+                            }, 600);
+
+                        }
+
+                    //}, 1000);
+
+
+
 
                 } else {
                     location.href = "login.html";

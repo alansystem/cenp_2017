@@ -69,7 +69,7 @@ header{
      height:50px;
      width:100%;
      display:block;
-	 background-image: url(assets/header.png);
+	 background-image: url(../assets/header.png);
 	 border-bottom: solid 3px #100000;
 	 /*border-top: solid 3px #100000;*/
 	 box-shadow: 0px 0px 10px #000;

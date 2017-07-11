@@ -91,7 +91,7 @@
                         }
                     }
                 } catch (ex) {
-                    //
+                    console.log(ex);
                 }
             };
 
@@ -109,10 +109,10 @@
                                         window.setTimeout(function () {
                                             file.remove(function () {
                                                 console.log(url + " deleted");
-                                            }, function () { });
-                                        }, 4000);
+                                            }, function () { console.log('ERRO AO APAGAR');});
+                                        }, 1000);
                                     }, function () { });
-                                }, function () { });
+                        }, function () { });
 
 
                 }, 1000);
@@ -191,7 +191,7 @@
 
                 //Contabiliza
                 $.get('http://clarearpropaganda.com.br/appcenp/revista/revista/revista/apiContador/appcenp/' + revista[0] + '/' + idLeitor, function (data) {
-                    console.log(data);
+                    //console.log(data);
                 });
             });
 
@@ -202,7 +202,7 @@
                 if (networkState !== 'none') {
                     $.ajax({
                         method: "GET",
-                        async: false,
+                        //async: false,
                         url: "http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/apiRevistas2",
                         beforeSend: function () { $('#wait').show(); },
                         complete: function () { $('#wait').hide(); },
@@ -217,13 +217,13 @@
                           .done(function (resultado) {
                               localStorage.setItem('CAPA', resultado);
                               $('.revistas').html(resultado);
-                              console.log(resultado);
+                              //console.log(resultado);
                               //$(".download").hide();
                               window.setTimeout(function () {
                                   $.each($('.download'), function (key, value) {
                                       //console.log($('.download:eq(' + key + ')').attr('id'));
                                       //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
-                                      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                                      window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) {  }); });
                                   });
                               }, 600);
                           })
@@ -245,7 +245,7 @@
                         $.each($('.download'), function (key, value) {
                             //console.log($('.download:eq(' + key + ')').attr('id'));
                             //window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
-                            window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) { }); });
+                            window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (dir) { dir.getDirectory($('.download:eq(' + key + ')').attr('id'), { create: false }, function (e) { $('.download:eq(' + key + ')').remove(); }, function (e) {  }); });
                         });
                         $('img.center-block').parent.hide();
                         $('img.center-block').hide();

@@ -8,37 +8,37 @@
     },
     "installed_plugins": {
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-zip": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "pushbots-cordova-plugin": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "br.com.cenp"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "br.com.cenp"
+            "PACKAGE_NAME": "com.magtab.796"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "br.com.cenp"
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "cordova-plugin-zip": {
+            "PACKAGE_NAME": "com.magtab.796"
+        },
+        "pushbots-cordova-plugin": {
+            "PACKAGE_NAME": "com.magtab.796"
         }
     },
     "dependent_plugins": {}

@@ -5,7 +5,8 @@
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="pragma" content="no-cache" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">
+    <!--<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi">-->
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
     <!--<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />-->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link href="css/styles.css" rel="stylesheet" />
@@ -31,7 +32,7 @@
 
     <div id="page" style="">
         <!--<button type="button" data-role="none" class="slick-prev slick-arrow" aria-label="Previous" role="button" style="display: block;">Previous</button>-->
-        <div class="swiper-container" style="padding-top:65px; height:100%;">
+        <div class="swiper-container" style="padding-top:55px; height:100%;">
             <div class="swiper-wrapper" style="height:100%;">
 
             </div>
@@ -59,8 +60,7 @@
             var page_current = localStorage.getItem('page_current_' + revista_id);
 
             var swiper;
-
-
+                                
             //Contabiliza Acesso
             try {
                 $.post(url_sistema + 'apiInsertContabilizaRevista', { id_revista: revista_id, id_leitor: id_leitor }, function () {
@@ -71,6 +71,7 @@
 
             var id_revista = localStorage.getItem('revista_id');
             var numero_revista = localStorage.getItem('revista_numero');
+
 
             var existeDir = 0;
 
@@ -84,7 +85,7 @@
                 $.ajax({
                     method: "POST",
                     data: { id_revista: id_revista },
-                    async: false,
+                    //async: false,
                     url: "http://clarearpropaganda.com.br/appcenp/revista/revista/leitor/apiRevistaEspecifica",
                     crossDomain: true,
                     dataType: 'html',
@@ -98,7 +99,8 @@
                     }
 
                 })
-                      .done(function (resultado) {
+                    .done(function (resultado) {
+
                           var dados = resultado.split(';');
 
                           localStorage.setItem('link_app', dados[0]);
@@ -106,7 +108,7 @@
 
                           $('.swiper-wrapper').html('');
                           for (var c = 0; c < dados[1]; c++) {
-                              $('.swiper-wrapper').append('<div class="swiper-slide zoom pag' + c + '" data-zoom="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" style="overflow-y:scroll !important;"><img src="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" class="img-responsive imagem' + c + '" /></div>');
+                              $('.swiper-wrapper').append('<div class="swiper-slide zoom pag' + c + '" data-zoom="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" style="overflow:hidden;"><img src="http://www.cenp.com.br/Site/cenp_revista/' + dados[0] + '/page' + parseInt(c + 1) + '.jpg" class="img-responsive imagem' + c + '" /></div>');
                           }
 
 

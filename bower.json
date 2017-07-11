@@ -1,4 +1,5 @@
 {
-  "name": "CENP",
-  "dependencies": {}
+    "name": "CENP_Revista",
+    "dependencies": {
+    }
 }
